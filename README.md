@@ -10,7 +10,7 @@ For development, there are several Docker containers. There exists a container f
 
 ## Git hooks
 
-Make sure to install the Git hooks such that it checks whether the code adheres to a few standards on each commit. The Git hooks are installed by executing the following command:
+Make sure to install the Git hooks such that it checks whether the code adheres to a few standards (PEP-8 and Numpy docstrings) on each commit. The Git hooks are installed by executing the following command:
 
 `docker-compose up --build githook-installer`
 
