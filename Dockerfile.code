@@ -1,5 +1,0 @@
-FROM entity-salience-base
-
-# Setup the code
-COPY . /code
-WORKDIR /code
