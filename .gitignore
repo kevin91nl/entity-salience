@@ -137,10 +137,6 @@ test_database
 # Editor
 .idea/
 
-# Webpack distribution files
-static/frontend/js
-webpack-stats.json
-
 # JavaScript
 node_modules/
 
