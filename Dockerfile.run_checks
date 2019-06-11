@@ -1,0 +1,12 @@
+FROM entity-salience-base
+
+# Add build tools
+RUN apk add gcc musl-dev make
+
+# Install requirements
+COPY requirements.run_checks.txt /requirements.run_checks.txt
+RUN pip install -r /requirements.run_checks.txt
+
+# Setup the code
+COPY . /code
+WORKDIR /code

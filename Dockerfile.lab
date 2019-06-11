@@ -1,0 +1,8 @@
+FROM entity-salience-base
+
+# Install JupyterLab
+RUN python3 -m pip install jupyterlab==0.35.6
+
+# Setup the code
+COPY . /code
+WORKDIR /code

@@ -1,0 +1,4 @@
+#!/bin/bash
+echo "Executing pre-commit hook..."
+docker-compose build run_checks
+docker-compose run --rm run_checks

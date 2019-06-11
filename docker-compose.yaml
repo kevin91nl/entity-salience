@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  githook_installer:
+    build:
+      context: .
+      dockerfile: Dockerfile.githooks
+    volumes:
+      - ./.git:/tmp/.git
+      - ./hooks:/tmp/hooks
+
+  base:
+    image: entity-salience-base
+    build:
+      context: .
+      dockerfile: Dockerfile.base
+
+  lab:
+    build:
+      context: .
+      dockerfile: Dockerfile.lab
+    depends_on:
+      - base
+    stdin_open: true
+    tty: true
+    ports:
+      - "8888:8888"
+    command: sh -c "jupyter lab --no-browser --ip '*' --NotebookApp.token='' --allow-root --notebook-dir='/code/notebooks/'"
+    volumes:
+      - .:/code
+
+  run_checks:
+    build:
+      context: .
+      dockerfile: Dockerfile.run_checks
+    depends_on:
+      - base
+    command: sh -c "make run_checks"
+    volumes:
+      - .:/code

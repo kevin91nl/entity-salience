@@ -1,0 +1,1 @@
+`docker-compose up --build githook_installer`

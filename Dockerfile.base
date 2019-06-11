@@ -1,0 +1,4 @@
+FROM petronetto/pytorch-alpine
+
+# Update the Python path
+ENV PYTHONPATH "${PYTHONPATH}:/code"
