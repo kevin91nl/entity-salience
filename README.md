@@ -4,6 +4,12 @@
 
 This repository contains the code for my Master Thesis which is about salient entity detection in documents.
 
+## Quick start
+
+The following code loads data from the entity salience detection project:
+
+`docker run -it kevin91nl/entity-salience python -c "from dataset.loader import ExternalDataLoader; print(ExternalDataLoader().get('annotations').head(5))"`
+
 ## Development
 
 For development, there are several Docker containers. There exists a container for serving the notebooks, there exists a container for running tests and there exists a default container used for running the Python code. The different Docker containers are explained in this section.
