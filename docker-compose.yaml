@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  githook_installer:
+  githook-installer:
     build:
       context: .
       dockerfile: Dockerfile.githooks
@@ -29,12 +29,25 @@ services:
     volumes:
       - .:/code
 
-  run_checks:
+  run-checks:
     build:
       context: .
-      dockerfile: Dockerfile.run_checks
+      dockerfile: Dockerfile.checks
     depends_on:
       - base
-    command: sh -c "make run_checks"
+    command: sh -c "make checks"
+    volumes:
+      - .:/code
+
+  entity-salience:
+    image: kevin91nl/entity-salience
+    build:
+      context: .
+      dockerfile: Dockerfile
+    stdin_open: true
+    tty: true
+    depends_on:
+      - base
+    command: sh -c "python"
     volumes:
       - .:/code
