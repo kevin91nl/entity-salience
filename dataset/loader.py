@@ -11,13 +11,18 @@ class ExternalDataLoader:
 
     def __init__(self):
         """Initialize the external data loader."""
+        # The base URL
         self.base_url = 'https://raw.githubusercontent.com/kevin91nl/entity-salience-data/master/data/wikiphrase/'
+
+        # The files and their metadata
         self.files = {
             'annotations': {'path': 'annotations.csv', 'parser': self.parse_csv},
             'wikinews-docs': {'path': 'wikinews-docs.json', 'parser': self.parse_json},
             'wikinews-entities': {'path': 'wikinews-entities.json', 'parser': self.parse_json},
             'wikipedia-entities': {'path': 'wikipedia-entities.json', 'parser': self.parse_json},
         }
+
+        # Initialize the cache
         self.cache = dict()
 
     @staticmethod
@@ -72,17 +77,32 @@ class ExternalDataLoader:
         ValueError
             When the file is not found or when an error occurred during the lookup.
         """
+        # Check whether the file exists
         if file not in self.files:
             raise ValueError(f'File "{file}" not found. Choose one of: [{", ".join(self.files.keys())}]')
-        file_metadata = self.files.get(file)
+
+        # Check whether the cache exists
         if file in self.cache and not ignore_cache:
             return self.cache[file]
+
+        # Retrieve file metadata
+        file_metadata = self.files.get(file)
         path = file_metadata['path']
         parser = file_metadata['parser']
+
+        # Compile the URL
         url = urljoin(self.base_url, path)
+
+        # Make the request
         response = requests.get(url)
         if response.status_code != 200:
             raise ValueError(f'Could not retrieve file "{file}" on URL "{url}".')
+
+        # Parse the response
         result = parser(response.content)
+
+        # Update the cache
         self.cache[file] = result
+
+        # Return the result
         return result
