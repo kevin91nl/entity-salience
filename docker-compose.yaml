@@ -1,6 +1,8 @@
 version: '3'
 
 services:
+
+  # The Git hook installer service makes sure to install the pre-commit hook for checking code standards
   githook-installer:
     build:
       context: .
@@ -9,12 +11,14 @@ services:
       - ./.git:/tmp/.git
       - ./hooks:/tmp/hooks
 
+  # The base image on which all other images are based
   base:
     image: entity-salience-base
     build:
       context: .
       dockerfile: Dockerfile.base
 
+  # The lab image extends the base images with Jupyter lab
   lab:
     build:
       context: .
@@ -29,6 +33,7 @@ services:
     volumes:
       - .:/code
 
+  # The run-checks image extends the base image with code standard checks and testing tools
   run-checks:
     build:
       context: .
@@ -39,6 +44,7 @@ services:
     volumes:
       - .:/code
 
+  # The entity-salience image is the base image including the source code
   entity-salience:
     image: kevin91nl/entity-salience
     build:

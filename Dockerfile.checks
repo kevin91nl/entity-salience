@@ -6,6 +6,9 @@ RUN apk add gcc musl-dev make
 # Install requirements
 RUN pip install flake8==3.7.7 pylint==2.3.1 pydocstyle==3.0.0 flake8-print==3.1.0 pytest==4.5.0
 
-# Setup the code
-COPY . /code
+# Setup the working directory
+RUN mkdir -p /code
 WORKDIR /code
+
+# Copy the Makefile
+COPY Makefile /code/Makefile

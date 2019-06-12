@@ -16,7 +16,7 @@ docker run -it kevin91nl/entity-salience python -c "from dataset.loader import E
 
 For development, there are several Docker containers. There exists a container for serving the notebooks, there exists a container for running tests and there exists a default container used for running the Python code. The different Docker containers are explained in this section.
 
-## Git hooks
+## Git hooks installer
 
 Make sure to install the Git hooks such that it checks whether the code adheres to a few standards (PEP-8 and Numpy docstrings) on each commit. The Git hooks are installed by executing the following command:
 
@@ -24,15 +24,15 @@ Make sure to install the Git hooks such that it checks whether the code adheres 
 docker-compose up --build githook-installer
 ```
 
-## Run all checks
+## Tests and checks
 
-In order to run all checks manually, execute the following command:
+The test and checks are execute automatically by the pre-commit hook which is installed by the Git hooks installer. In order to run all tests and checks manually, execute the following command:
 
 ```bash
 docker-compose up --build run-checks
 ```
 
-## Notebooks
+## Notebook server
 
 In order to serve the notebooks on `http://localhost:8888`, execute the following command:
 
