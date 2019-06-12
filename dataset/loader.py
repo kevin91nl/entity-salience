@@ -18,6 +18,7 @@ class ExternalDataLoader:
             'wikinews-entities': {'path': 'wikinews-entities.json', 'parser': self.parse_json},
             'wikipedia-entities': {'path': 'wikipedia-entities.json', 'parser': self.parse_json},
         }
+        self.cache = dict()
 
     @staticmethod
     def parse_csv(content):
@@ -74,8 +75,8 @@ class ExternalDataLoader:
         if file not in self.files:
             raise ValueError(f'File "{file}" not found. Choose one of: [{", ".join(self.files.keys())}]')
         file_metadata = self.files.get(file)
-        if 'cache' in file_metadata and not ignore_cache:
-            return file_metadata['cache']
+        if file in self.cache and not ignore_cache:
+            return self.cache[file]
         path = file_metadata['path']
         parser = file_metadata['parser']
         url = urljoin(self.base_url, path)
@@ -83,5 +84,5 @@ class ExternalDataLoader:
         if response.status_code != 200:
             raise ValueError(f'Could not retrieve file "{file}" on URL "{url}".')
         result = parser(response.content)
-        self.files[file]['cache'] = result
+        self.cache[file] = result
         return result

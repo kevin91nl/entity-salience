@@ -12,7 +12,7 @@ class TestDatasetLoaderExternalDataLoader(unittest.TestCase):
 
         def __init__(self, status_code, content):
             self.status_code = status_code
-            self.content = content.encode('utf-8')
+            self.content = content.encode('utf-8') if content is not None else None
 
     class FakeRequests:
         """The FakeRequests class fakes the requests library and has a custom get() method which always delivers the
