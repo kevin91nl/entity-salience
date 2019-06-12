@@ -1,6 +1,7 @@
 import json
 import unittest
 import dataset.loader
+import pandas as pd
 
 
 class TestDatasetLoaderExternalDataLoader(unittest.TestCase):
@@ -43,6 +44,7 @@ class TestDatasetLoaderExternalDataLoader(unittest.TestCase):
         result = loader.get('test-csv', ignore_cache=True)
 
         # Check whether the content is correct
+        self.assertIsInstance(result, pd.DataFrame)
         self.assertEqual(result.shape[0], 1)
         self.assertListEqual(result.columns.tolist(), ['header1', 'header2'])
         self.assertDictEqual(result.iloc[0].to_dict(), {'header1': 'cell1', 'header2': 'cell2'})
@@ -65,6 +67,7 @@ class TestDatasetLoaderExternalDataLoader(unittest.TestCase):
         result = loader.get('test-json', ignore_cache=True)
 
         # Check whether the content is correct
+        self.assertIsInstance(result, pd.DataFrame)
         self.assertEqual(result.shape[0], 1)
         self.assertListEqual(result.columns.tolist(), ['hello'])
         self.assertDictEqual(result.iloc[0].to_dict(), {'hello': 'world'})
