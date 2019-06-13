@@ -48,6 +48,13 @@ class Tokenizer:
         return text.split()
 
     def __init__(self, tokenizer_method=None):
+        """Initialize the tokenizer.
+
+        Parameters
+        ----------
+        tokenizer_method : function
+            A function which tokenizes the given input and returns a list of tokens.
+        """
         self.tokenizer_method = tokenizer_method if tokenizer_method is not None else self.default_tokenizer
 
     def __call__(self, text):
